@@ -72,7 +72,7 @@ You can use `verify` subcommand to verify signatures for all resources. In the `
 
 ```
 % tapestry-pipelines tkn verify -key ./cosign.pub -d ./sample-pipeline -i us.icr.io/tap8stry -t dev6
-``
+```
 
 ## Demo
 
