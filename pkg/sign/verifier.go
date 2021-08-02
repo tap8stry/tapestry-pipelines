@@ -1,3 +1,19 @@
+//
+// Copyright 2020 IBM Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
 package sign
 
 import (
@@ -10,14 +26,11 @@ import (
 	"github.com/google/go-containerregistry/pkg/name"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/pkg/errors"
+	"github.com/sigstore/cosign/cmd/cosign/cli"
 	"github.com/sigstore/cosign/pkg/cosign"
 	"github.com/sigstore/k8s-manifest-sigstore/pkg/k8smanifest"
+	k8ssigutil "github.com/sigstore/k8s-manifest-sigstore/pkg/util"
 	"github.ibm.scs.com/tapestry/pkg/common"
-)
-
-const (
-	verifyYamlCosignCmd  = "kubectl sigstore verify -k {{.Key}} -f {{.YamlFile}} -i {{.Image}}"
-	verifyImageCosignCmd = "cosign verify -key {{.Key}} {{.Image}}"
 )
 
 //Verify :
@@ -58,6 +71,13 @@ func verifyYamlFile(imgRef, pubkeyRef, filepath string) (bool, error) {
 		fmt.Fprintln(os.Stderr, err.Error())
 		return verified, errors.Wrapf(err, "error opening manifest file: %s", filepath)
 	}
+
+	annotations := k8ssigutil.GetAnnotationsInYAML(manifest)
+	annoImageRef, annoImageRefFound := annotations[k8smanifest.ImageRefAnnotationKey]
+	if imgRef == "" && annoImageRefFound {
+		imgRef = annoImageRef
+	}
+
 	vo := &k8smanifest.VerifyManifestOption{}
 	if imgRef != "" {
 		vo.ImageRef = imgRef
@@ -80,40 +100,24 @@ func verifyTaskImage(ctx context.Context, imgRef, pubkeyRef string) (bool, error
 		return false, fmt.Errorf("failed to parse image ref `%s`; %s", imgRef, err.Error())
 	}
 	co := &cosign.CheckOpts{
-		Claims: true,
 		RegistryClientOpts: []remote.Option{
 			remote.WithAuthFromKeychain(authn.DefaultKeychain),
 			remote.WithContext(ctx),
 		},
 	}
 
-	pubkeyVerifier, err := cosign.LoadPublicKey(context.Background(), pubkeyRef)
+	pubkeyVerifier, err := cli.LoadPublicKey(context.Background(), pubkeyRef)
 	if err != nil {
 		return false, fmt.Errorf("error loading public key; %s", err.Error())
 	}
 	co.SigVerifier = pubkeyVerifier
 	verified, err := cosign.Verify(context.Background(), ref, co)
-
 	if err != nil {
 		return false, fmt.Errorf("error occured while verifying image `%s`; %s", imgRef, err.Error())
 	}
 	if len(verified) == 0 {
 		return false, fmt.Errorf("no verified signatures in the image `%s`; %s", imgRef, err.Error())
 	}
-	// var cert *x509.Certificate
-	// for _, vp := range verified {
-	// 	ss := payload.SimpleContainerImage{}
-	// 	err := json.Unmarshal(vp.Payload, &ss)
-	// 	if err != nil {
-	// 		continue
-	// 	}
-	// 	cert = vp.Cert
-	// 	break
-	// }
-	// signerName := "" // singerName could be empty in case of key-used verification
-	// if cert != nil {
-	// 	signerName = k8smnfutil.GetNameInfoFromCert(cert)
-	// }
 
 	return true, nil
 }

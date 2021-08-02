@@ -1,3 +1,10 @@
+VERSION=$(shell git describe --tags --always)
+COMMIT=$(shell git rev-parse HEAD)
+BUILD=$(shell date +%FT%T%z)
+PKG=github.ibm.scs.com/tapestry/cmd/tapestry/cli
+
+LDFLAGS="-X $(PKG).version=$(VERSION) -X $(PKG).commit=$(COMMIT) -X $(PKG).date=$(BUILD)"
+
 .PHONY: all
 all: setup dep test cover fmt lint ci build
     
@@ -48,8 +55,7 @@ ci: lint test ## Run all the tests and code checks
 
 .PHONY: build
 build: ## Build a version
-	#GOOS=linux go build -a -installsuffix cgo -o ./bin/cis-task cmd/cis-task/main.go
-	go build -o ./bin/tapestry cmd/tapestry/main.go
+	go build -ldflags ${LDFLAGS} -o tapestry-pipelines cmd/tapestry/main.go
 
 .PHONY: clean
 clean: ## Remove temporary files
