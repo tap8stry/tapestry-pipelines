@@ -22,9 +22,9 @@ import (
 
 	"github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
 
-	"github.ibm.scs.com/tapestry/pkg/sign"
-	"github.ibm.scs.com/tapestry/pkg/tkn/resources"
-	"github.ibm.scs.com/tapestry/pkg/utils"
+	"github.com/tapestry-pipelines/pkg/sign"
+	"github.com/tapestry-pipelines/pkg/tkn/resources"
+	"github.com/tapestry-pipelines/pkg/utils"
 )
 
 type tknResources struct {

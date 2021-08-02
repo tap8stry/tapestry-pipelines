@@ -2,3 +2,4 @@ bin/
 vendor/
 *.pub
 *.key
+.DS_Store

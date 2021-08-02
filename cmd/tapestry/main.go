@@ -24,7 +24,7 @@ import (
 
 	"github.com/google/go-containerregistry/pkg/logs"
 	"github.com/peterbourgon/ff/v3/ffcli"
-	"github.ibm.scs.com/tapestry/cmd/tapestry/cli"
+	"github.com/tapestry-pipelines/cmd/tapestry/cli"
 )
 
 var (

@@ -30,7 +30,7 @@ import (
 	"github.com/sigstore/cosign/pkg/cosign"
 	"github.com/sigstore/k8s-manifest-sigstore/pkg/k8smanifest"
 	k8ssigutil "github.com/sigstore/k8s-manifest-sigstore/pkg/util"
-	"github.ibm.scs.com/tapestry/pkg/common"
+	"github.com/tapestry-pipelines/pkg/common"
 )
 
 //Verify :

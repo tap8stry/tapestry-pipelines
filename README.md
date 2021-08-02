@@ -61,7 +61,7 @@ This command shows all pipeline resources from a given definition directory that
 ```
 
 ### Sign pipeline resources
-First, you need to generate a key-pair to be use for signing/verification. You can use `cosign` to generate it following these [Instructions](https://github.com/sigstore/cosign#generate-a-keypair). Then use your private key to sign the resources. You also need to provide an OCI registry `path` and `tag` use for uploading signed artifacts. 
+First, you need to generate a key-pair to be use for signing/verification. You can use `cosign` to generate it following these [Instructions](https://github.com/sigstore/cosign#generate-a-keypair). Then use your private key to sign the resources. To avoid entering password for your private key multiple times, you can set set the password as environment variable `COSIGN_PASSWORD`. You also need to provide an OCI registry `path` and `tag` use for uploading signed artifacts. 
 
 ```
 % tapestry-pipelines tkn sign -key ./cosign.key -d ./sample-pipeline -i us.icr.io/tap8stry -t dev6
@@ -76,6 +76,7 @@ You can use `verify` subcommand to verify signatures for all resources. In the `
 
 ## Demo
 
+![Demo](images/tapestry-demo.gif?)
 
 ## WIP
 

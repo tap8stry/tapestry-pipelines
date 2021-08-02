@@ -23,8 +23,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/tapestry-pipelines/pkg/utils"
 	"github.com/tektoncd/pipeline/pkg/client/clientset/versioned/scheme"
-	"github.ibm.scs.com/tapestry/pkg/utils"
 )
 
 const (

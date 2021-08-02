@@ -1,4 +1,4 @@
-module github.ibm.scs.com/tapestry
+module github.com/tapestry-pipelines
 
 go 1.16
 
@@ -32,6 +32,7 @@ require (
 	go.etcd.io/etcd v3.3.13+incompatible // indirect
 	go.hein.dev/go-version v0.1.0
 	go.uber.org/zap v1.18.1
+	golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/cli-runtime v0.21.2 // indirect
 	k8s.io/kube-openapi v0.0.0-20210305001622-591a79e4bda7 // indirect

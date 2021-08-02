@@ -24,8 +24,9 @@ import (
 	"github.com/pkg/errors"
 	cosigncli "github.com/sigstore/cosign/cmd/cosign/cli"
 	"github.com/sigstore/k8s-manifest-sigstore/pkg/k8smanifest"
+	"github.com/tapestry-pipelines/pkg/common"
+	"github.com/tapestry-pipelines/pkg/utils"
 	"github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
-	"github.ibm.scs.com/tapestry/pkg/common"
 )
 
 //TknSignCandidates :
@@ -117,7 +118,7 @@ func signImage(imgRef, keyRef string) error {
 
 	if keyRef != "" {
 		opt.KeyRef = keyRef
-		opt.PassFunc = cosigncli.GetPass
+		opt.PassFunc = utils.GetPrivKeyPwd
 	}
 
 	return cosigncli.SignCmd(context.Background(), opt, imageAnnotations, imgRef, certPathStr, true, "", false, false)

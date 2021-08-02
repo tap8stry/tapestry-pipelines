@@ -1,7 +1,7 @@
 VERSION=$(shell git describe --tags --always)
 COMMIT=$(shell git rev-parse HEAD)
 BUILD=$(shell date +%FT%T%z)
-PKG=github.ibm.scs.com/tapestry/cmd/tapestry/cli
+PKG=github.com/tapestry-pipelines/cmd/tapestry/cli
 
 LDFLAGS="-X $(PKG).version=$(VERSION) -X $(PKG).commit=$(COMMIT) -X $(PKG).date=$(BUILD)"
 

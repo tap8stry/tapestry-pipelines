@@ -17,9 +17,9 @@
 package resources
 
 import (
+	"github.com/tapestry-pipelines/pkg/sign"
 	v1beta1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
 	"github.com/tektoncd/pipeline/pkg/client/clientset/versioned/scheme"
-	"github.ibm.scs.com/tapestry/pkg/sign"
 	"go.uber.org/zap"
 )
 

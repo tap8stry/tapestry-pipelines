@@ -22,8 +22,12 @@ import (
 
 	"github.com/peterbourgon/ff/v3/ffcli"
 	"github.com/pkg/errors"
-	"github.ibm.scs.com/tapestry/pkg/common"
-	"github.ibm.scs.com/tapestry/pkg/tkn"
+	"github.com/tapestry-pipelines/pkg/common"
+	"github.com/tapestry-pipelines/pkg/tkn"
+)
+
+var (
+	privKeyPwd = ""
 )
 
 //TknSign :

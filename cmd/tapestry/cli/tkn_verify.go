@@ -23,9 +23,9 @@ import (
 
 	"github.com/peterbourgon/ff/v3/ffcli"
 	"github.com/pkg/errors"
+	"github.com/tapestry-pipelines/pkg/common"
+	"github.com/tapestry-pipelines/pkg/tkn"
 	"github.com/xlab/treeprint"
-	"github.ibm.scs.com/tapestry/pkg/common"
-	"github.ibm.scs.com/tapestry/pkg/tkn"
 )
 
 //TknVerify :

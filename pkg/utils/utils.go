@@ -18,10 +18,12 @@ package utils
 
 import (
 	"fmt"
+	"golang.org/x/term"
 	"io"
 	"os"
 	"path/filepath"
 	"regexp"
+	"syscall"
 )
 
 //FilePathWalkDir :
@@ -110,4 +112,19 @@ func copyFileContents(src, dst string) (err error) {
 	}
 	err = out.Sync()
 	return
+}
+
+//GetPrivKeyPwd :
+func GetPrivKeyPwd(bool) ([]byte, error) {
+	// if currPwd != nil {
+	// 	return currPwd, nil
+	// }
+	if pw, ok := os.LookupEnv("COSIGN_PASSWORD"); ok {
+		return []byte(pw), nil
+	}
+	if term.IsTerminal(0) {
+		fmt.Print("Enter Password: ")
+		return term.ReadPassword(int(syscall.Stdin))
+	}
+	return nil, nil
 }
