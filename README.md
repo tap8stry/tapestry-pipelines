@@ -76,7 +76,7 @@ You can use `verify` subcommand to verify signatures for all resources. In the `
 
 ## Demo
 
-![Demo](images/tapestry-demo.gif?)
+![Demo](media/tapestry-demo.gif?)
 
 ## WIP
 
