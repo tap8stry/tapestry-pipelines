@@ -60,7 +60,7 @@ EXAMPLES
 			}
 
 			if err := VerifyPipeline(ctx, ko, *recursive); err != nil {
-				return errors.Wrapf(err, "pipeline verification %s", ko.PipelineDir)
+				return errors.Wrapf(err, "pipeline verification failed %s", ko.PipelineDir)
 			}
 			// for _, img := range args {
 			// 	if err := SignCmd(ctx, ko, annotations.annotations, img, *cert, *upload, *payloadPath, *force, *recursive); err != nil {
@@ -80,12 +80,13 @@ var (
 
 //VerifyPipeline :
 func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool) error {
+	verifyStatus := true
 	signCandidates, err := tkn.GenSignCandidates(ctx, ko.PipelineDir, "")
 	if err != nil {
-		return errors.Wrapf(err, "pipeline signing %s", ko.PipelineDir)
+		return errors.Wrapf(err, "pipeline verification error %s", ko.PipelineDir)
 	}
 	if err := signCandidates.Verify(ctx, ko); err != nil {
-		return errors.Wrapf(err, "pipeline signing %s", ko.PipelineDir)
+		return errors.Wrapf(err, "pipeline verification error %s", ko.PipelineDir)
 	}
 	tree := treeprint.NewWithRoot(ko.PipelineDir)
 	for _, pc := range signCandidates.PipelinesSC {
@@ -93,6 +94,7 @@ func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool
 		if pc.Verified {
 			pipelineResult = fmt.Sprintf("%s %s (pipeline)", string(colorGreen), pc.Name)
 		} else {
+			verifyStatus = false
 			pipelineResult = fmt.Sprintf("%s %s (pipeline)", string(colorRed), pc.Name)
 		}
 		p := tree.AddBranch(pipelineResult)
@@ -101,6 +103,7 @@ func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool
 			if tc.Verified {
 				taskResult = fmt.Sprintf("%s %s (task)", string(colorGreen), tc.Name)
 			} else {
+				verifyStatus = false
 				taskResult = fmt.Sprintf("%s %s (task)", string(colorRed), tc.Name)
 			}
 			t := p.AddBranch(taskResult)
@@ -110,6 +113,7 @@ func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool
 				if sc.Verified {
 					imgResult = fmt.Sprintf("%s %s (image)", string(colorGreen), sc.ImageRef)
 				} else {
+					verifyStatus = false
 					imgResult = fmt.Sprintf("%s %s (image)", string(colorRed), sc.ImageRef)
 				}
 				s.AddNode(imgResult)
@@ -117,5 +121,10 @@ func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool
 		}
 	}
 	fmt.Println(tree.String())
+	fmt.Println(string(reset))
+
+	if !verifyStatus { //failed
+		return errors.New("pipeline resource verification error ")
+	}
 	return nil
 }
