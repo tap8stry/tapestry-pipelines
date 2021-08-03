@@ -82,9 +82,10 @@ You can use `verify` subcommand to verify signatures for all resources. In the `
 
 We have active Work In Progress (WIP) on following fronts and welcome anyone who is willing to join the forces. 
 
-1. Support for signing/verification of Github Actions
-2. Support for KMS for key handling
-3. Tekton Pipeline Admission Controller that validate signatures for all pipeline resources before admitting pipeline
-4. Extending sign verification to event triggers
+1. Add support for signing/verification of tekton bundles 
+2. Support for signing/verification of Github Actions
+3. Support for KMS for key handling
+4. Tekton Pipeline Admission Controller that validate signatures for all pipeline resources before admitting pipeline
+5. Extending sign verification to event triggers
 
 
