@@ -87,7 +87,7 @@ func verifyYamlFile(imgRef, pubkeyRef, filepath string) (bool, error) {
 	}
 	result, err := k8smanifest.VerifyManifest(manifest, vo)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
+		// fmt.Fprintln(os.Stderr, err.Error())
 		return verified, errors.Wrapf(err, "error verifying manifest file: %s", filepath)
 	}
 	verified = result.Verified
