@@ -3,3 +3,4 @@ vendor/
 *.pub
 *.key
 .DS_Store
+tapestry-pipelines
