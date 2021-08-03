@@ -73,8 +73,9 @@ EXAMPLES
 }
 
 var (
-	colorRed   = "\033[31m"
-	colorGreen = "\033[32m"
+	colorRed   = "\033[0;31m"
+	colorGreen = "\033[0;32m"
+	reset      = "\033[0m"
 )
 
 //VerifyPipeline :
@@ -98,18 +99,18 @@ func VerifyPipeline(ctx context.Context, ko common.KeyVerifyOpts, recursive bool
 		for _, tc := range pc.TaskRefs {
 			taskResult := ""
 			if tc.Verified {
-				taskResult = fmt.Sprintf("%s %s (pipeline)", string(colorGreen), tc.Name)
+				taskResult = fmt.Sprintf("%s %s (task)", string(colorGreen), tc.Name)
 			} else {
-				taskResult = fmt.Sprintf("%s %s (pipeline)", string(colorRed), tc.Name)
+				taskResult = fmt.Sprintf("%s %s (task)", string(colorRed), tc.Name)
 			}
 			t := p.AddBranch(taskResult)
 			for _, sc := range tc.Steps {
-				s := t.AddBranch(fmt.Sprintf("%s (step)", sc.Name))
+				s := t.AddBranch(fmt.Sprintf("%s %s (step)", string(reset), sc.Name))
 				imgResult := ""
-				if tc.Verified {
-					imgResult = fmt.Sprintf("%s %s (pipeline)", string(colorGreen), sc.ImageRef)
+				if sc.Verified {
+					imgResult = fmt.Sprintf("%s %s (image)", string(colorGreen), sc.ImageRef)
 				} else {
-					imgResult = fmt.Sprintf("%s %s (pipeline)", string(colorRed), sc.ImageRef)
+					imgResult = fmt.Sprintf("%s %s (image)", string(colorRed), sc.ImageRef)
 				}
 				s.AddNode(imgResult)
 			}

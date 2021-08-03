@@ -38,7 +38,7 @@ func (candidates *TknSignCandidates) Verify(ctx context.Context, verifyOpts comm
 	for idx, pc := range candidates.PipelinesSC {
 		imgRef := fmt.Sprintf("%s/%s:%s", verifyOpts.RegistryPath, pc.Name, verifyOpts.ImageTag)
 		if verified, err := verifyYamlFile(imgRef, verifyOpts.KeyRef, pc.Filepath); err != nil || !verified {
-			fmt.Fprintln(os.Stderr, err.Error())
+			// fmt.Fprintln(os.Stderr, err.Error())
 			candidates.PipelinesSC[idx].Verified = false
 		} else {
 			candidates.PipelinesSC[idx].Verified = true
@@ -47,13 +47,13 @@ func (candidates *TknSignCandidates) Verify(ctx context.Context, verifyOpts comm
 			imgRef := fmt.Sprintf("%s/%s:%s", verifyOpts.RegistryPath, tc.Name, verifyOpts.ImageTag)
 			if verified, err := verifyYamlFile(imgRef, verifyOpts.KeyRef, tc.Filepath); err != nil || !verified {
 				candidates.PipelinesSC[idx].TaskRefs[idy].Verified = false
-				fmt.Fprintln(os.Stderr, err.Error())
+				// fmt.Fprintln(os.Stderr, err.Error())
 			} else {
 				candidates.PipelinesSC[idx].TaskRefs[idy].Verified = true
 			}
 			for idz, sc := range tc.Steps {
 				if verified, err := verifyTaskImage(ctx, sc.ImageRef, verifyOpts.KeyRef); err != nil || !verified {
-					fmt.Fprintln(os.Stderr, err.Error())
+					// fmt.Fprintln(os.Stderr, err.Error())
 					candidates.PipelinesSC[idx].TaskRefs[idy].Steps[idz].Verified = false
 				} else {
 					candidates.PipelinesSC[idx].TaskRefs[idy].Steps[idz].Verified = true
