@@ -41,7 +41,7 @@ func Tkn() *ffcli.Command {
 	)
 	return &ffcli.Command{
 		Name:       "tkn",
-		ShortUsage: "tapestry tkn sign|show|verify",
+		ShortUsage: "tapestry-pipelines tkn sign|show|verify",
 		ShortHelp:  `manage all tekton pipeline resources`,
 		LongHelp:   `manage all tekton pipeline resources`,
 		FlagSet:    flagset,

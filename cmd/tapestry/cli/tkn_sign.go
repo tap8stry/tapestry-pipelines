@@ -43,14 +43,14 @@ func TknSign() *ffcli.Command {
 	)
 	return &ffcli.Command{
 		Name:       "sign",
-		ShortUsage: "tapestry tkn sign -key <key path> [-f] [-r] <pipeline dir> [i] <oci registry path> [t] <image tag>",
+		ShortUsage: "tapestry-pipelines tkn sign -key <key path> [-f] [-r] <pipeline dir> [i] <oci registry path> [t] <image tag>",
 		ShortHelp:  `Sign all tekton pipeline resources`,
 		LongHelp: `Sign all tekton pipeline resources
 EXAMPLES
   # sign all pipeline resources
-  tapestry tkn sign -k ./cosign.key -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1
+  tapestry-pipelines tkn sign -k ./cosign.key -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1
   # sign resources for a give pipeline
-  tapestry tkn sign -k ./cosign.key -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1 -p pr-pipeline
+  tapestry-pipelines tkn sign -k ./cosign.key -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1 -p pr-pipeline
   `,
 		FlagSet: flagset,
 		Exec: func(ctx context.Context, args []string) error {

@@ -42,15 +42,15 @@ func TknShow() *ffcli.Command {
 	)
 	return &ffcli.Command{
 		Name:       "show",
-		ShortUsage: "tapestry tkn show [-r] <pipeline dir>",
+		ShortUsage: "tapestry-pipelines tkn show [-r] <pipeline dir>",
 		ShortHelp:  `Show all tekton pipeline resources`,
 		LongHelp: `Show all tekton pipeline resources
 EXAMPLES
   # Show all pipeline resources from given repository
-  tapestry tkn show -d ./sample-pipeline
+  tapestry-pipelines tkn show -d ./sample-pipeline
 
   # Show all resources for a pipeline from given repository
-  tapestry tkn show -d ./sample-pipeline -p pr-pipeline
+  tapestry-pipelines tkn show -d ./sample-pipeline -p pr-pipeline
   `,
 		FlagSet: flagset,
 		Exec: func(ctx context.Context, args []string) error {

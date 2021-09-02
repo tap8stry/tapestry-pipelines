@@ -35,7 +35,7 @@ var (
 
 func main() {
 	root := &ffcli.Command{
-		ShortUsage: "tapestry [flags] <subcommand>",
+		ShortUsage: "tapestry-pipelines [flags] <subcommand>",
 		FlagSet:    rootFlagSet,
 		Subcommands: []*ffcli.Command{
 			// Pipeline Options

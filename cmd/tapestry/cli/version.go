@@ -39,7 +39,7 @@ func Version() *ffcli.Command {
 	)
 	return &ffcli.Command{
 		Name:       "version",
-		ShortUsage: "tapestry version",
+		ShortUsage: "tapestry-pipelines version",
 		ShortHelp:  "Prints the tapestry version",
 		FlagSet:    flagset,
 		Exec: func(ctx context.Context, args []string) error {
