@@ -41,14 +41,14 @@ func TknVerify() *ffcli.Command {
 	)
 	return &ffcli.Command{
 		Name:       "verify",
-		ShortUsage: "tapestry tkn verify -key <key path> [-r] <pipeline dir> [i] <oci registry path> [t] <image tag>",
+		ShortUsage: "tapestry-pipelines tkn verify -key <key path> [-r] <pipeline dir> [i] <oci registry path> [t] <image tag>",
 		ShortHelp:  `verify all tekton pipeline resources`,
 		LongHelp: `Verify all tekton pipeline resources
 EXAMPLES
   # verify all pipeline resources
-  tapestry tkn verify -k ./cosign.pub -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1
+  tapestry-pipelines tkn verify -k ./cosign.pub -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1
   # verify resources for a give pipeline
-  tapestry tkn verify -k ./cosign.pub -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1 -p pr-pipeline
+  tapestry-pipelines tkn verify -k ./cosign.pub -d ./sample-pipeline-dir -i us.icr.io.tap8stry -t dev1 -p pr-pipeline
   `,
 		FlagSet: flagset,
 		Exec: func(ctx context.Context, args []string) error {
