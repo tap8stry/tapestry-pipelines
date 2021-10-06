@@ -35,7 +35,7 @@ var (
 
 func Version() *ffcli.Command {
 	var (
-		flagset = flag.NewFlagSet("tapestry version", flag.ExitOnError)
+		flagset = flag.NewFlagSet("tapestry-pipelines version", flag.ExitOnError)
 	)
 	return &ffcli.Command{
 		Name:       "version",

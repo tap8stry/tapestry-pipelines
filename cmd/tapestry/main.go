@@ -28,7 +28,7 @@ import (
 )
 
 var (
-	rootFlagSet    = flag.NewFlagSet("tapestry", flag.ExitOnError)
+	rootFlagSet    = flag.NewFlagSet("tapestry-pipelines", flag.ExitOnError)
 	debug          = rootFlagSet.Bool("d", false, "log debug output")
 	outputFilename = rootFlagSet.String("output-file", "", "log output to a file")
 )
